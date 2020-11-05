@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_blank.*
 
 
 class BlankFragment : Fragment() {
-    private lateinit var viewpagerAdapter: SampleViewpagerAdapter
+    private lateinit var viewpagerAdapter: Tablayoutadapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,9 +24,19 @@ class BlankFragment : Fragment() {
         val fragment= BlankFragment()
         val fragment2= BlankFragment2()
 
-        viewpagerAdapter= SampleViewpagerAdapter(getSupportFragmentManager())
-       // sample_tab.addTab(sample_tab.newTab().setText("1 번"))
-        viewpagerAdapter.fragments = listOf(
+
+
+// Tablayout과 연동
+
+        return view
+        //return inflater.inflate(R.layout.fragment_blank, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewpagerAdapter= Tablayoutadapter(requireActivity().supportFragmentManager)
+        // sample_tab.addTab(sample_tab.newTab().setText("1 번"))
+        viewpagerAdapter.fragmentss = listOf(
             BlankFragment2(),
             BlankFragment3(),
         )
@@ -35,15 +45,11 @@ class BlankFragment : Fragment() {
 // Tablayout과 연동
         sample_tab.setupWithViewPager(sample_tab_viewpager)
         sample_tab.apply {
-            getTabAt(0)?.text = "첫 번째"
-            getTabAt(1)?.text = "두 번째"
-            getTabAt(2)?.text = "세 번째"
+            getTabAt(0)?.text = "INFO"
+            getTabAt(1)?.text = "OTHER"
+
         }
 
-// Tablayout과 연동
-
-        return view
-        //return inflater.inflate(R.layout.fragment_blank, container, false)
     }
 
 
