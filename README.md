@@ -61,3 +61,187 @@ startActivityForResult()사용하여 로그인화면 내가 입력한 아이디�
             startActivity(intent)
             finish()
         }
+        
+        
+       
+       
+### 안드로이드 세미나 필수과제 3 2020.11.05완료
+하단탭+뷰페이저
+![첫번째 페이지](https://user-images.githubusercontent.com/48551119/98194793-89db3500-1f63-11eb-859f-ee6ae4fef42c.png)
+```
+override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_blank,container,false)
+   
+// Tablayout과 연동
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewpagerAdapter= Tablayoutadapter(requireActivity().supportFragmentManager)
+        // sample_tab.addTab(sample_tab.newTab().setText("1 번"))
+        viewpagerAdapter.fragmentss = listOf(
+            BlankFragment2(),
+            BlankFragment3(),
+        )
+
+        sample_tab_viewpager.adapter = viewpagerAdapter
+// Tablayout과 연동
+        sample_tab.setupWithViewPager(sample_tab_viewpager)
+        sample_tab.apply {
+            getTabAt(0)?.text = "INFO"
+            getTabAt(1)?.text = "OTHER"
+
+        }
+
+    }
+```
+fragment에 tablayout을 연결.
+Tablayoutadpater를 만들어 주었음.
+```
+class Tablayoutadapter (fm : FragmentManager)
+    : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
+
+    var fragmentss= listOf<Fragment>()
+    override fun getItem(position: Int): Fragment =when(position){
+        0->BlankFragment2()
+        1->BlankFragment3()
+
+        else -> throw IllegalStateException("unexpected position $position")
+    }
+
+    override fun getCount(): Int =2
+    
+}
+```
+![두번째 페이지](https://user-images.githubusercontent.com/48551119/98194936-e63e5480-1f63-11eb-80af-351c6c5cc70c.png)
+```
+private lateinit var sampleAdapter : SampleAdapter
+    lateinit var recyclerView1 : RecyclerView
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+
+
+    ): View? {
+        // Inflate the layout for this fragment
+        var rootView = inflater.inflate(R.layout.fragment_blank2, container, false)
+        sampleAdapter = SampleAdapter(requireContext())
+
+        recyclerView1 = rootView.findViewById(R.id.rcv2!!)as RecyclerView
+
+
+
+        recyclerView1.adapter = sampleAdapter
+        recyclerView1.layoutManager = LinearLayoutManager(requireContext())
+     
+        sampleAdapter.data = mutableListOf(
+            SampleData(" 이름","안나영","20/10/18","이름은 안나영 별명은 기억이안나영, 생각이안나영, 이손안나입니다."),
+            SampleData(" 나이","22살","20/10/18","생년월일은 1999년 8월 17일입니다."),
+            SampleData(" 파트","안드로이드","20/10/18","현재 안드로이드 파트원이며" +
+                    "파이썬 ,JAVA,C언어를 사용하고있습니다."),
+            SampleData(" 취미","노는것","20/10/18","노는것을 좋아하며 보드게임, 레저스포츠 등등을 좋아합니다."),
+        )
+
+
+        sampleAdapter.notifyDataSetChanged()
+
+        sampleAdapter.setItemClickListener( object : SampleAdapter.ItemClickListener{
+            override fun onClick(view: View, position: Int) {
+                val item = sampleAdapter.data [position]
+                Log.d("SSS", "${position}번 리스트 선택")
+                val intent = Intent(view.context, DetailActivity::class.java)
+                intent.putExtra("title",item.title)
+                intent.putExtra("subtitle",item.subTitle)
+                intent.putExtra("date",item.date)
+                intent.putExtra("detail",item.detail)
+                startActivity(intent)
+            }
+        })
+
+        return rootView
+    }
+```
+recyclerview를 연결해 주었음.
+![세번째 페이지](https://user-images.githubusercontent.com/48551119/98194994-0ec64e80-1f64-11eb-98ae-b5108cec3652.png)
+```
+ override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_blank3, container, false)
+    }
+```
+빈페이지
+
++++추가로 BottomNaviActivity 와 ViewpagerAcitivity
+#BottomNaviActivity 
+```
+class BottomNaviActivity : AppCompatActivity(){
+
+    private lateinit var  viewpagerAdapter: SampleViewpagerAdapter
+}
+```
+#ViewpagerAcitivity
+```
+class ViewpagerActivity : AppCompatActivity() {
+    var code =1
+
+    private  lateinit var viewpagerAdapter: SampleViewpagerAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_viewpager)
+
+        val fragment= BlankFragment()
+        val fragment2= BlankFragment2()
+        val activity1=TabviewpagerActivity()
+        viewpagerAdapter= SampleViewpagerAdapter(supportFragmentManager)
+        viewpagerAdapter.fragments= listOf(
+            BlankFragment(),
+            BlankFragment2(),
+            BlankFragment3()
+        )
+
+        sample_bottom_viewpager.adapter=viewpagerAdapter
+
+
+
+
+// ViewPager slide 시 BottomNavi 변경
+        sample_bottom_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {}
+            // ViewPager의 페이지 중 하나가 선택된 경우
+            override fun onPageSelected(position: Int) {
+                sample_bottom_navi.menu.getItem(position).isChecked = true
+
+
+            }
+        })
+//바텀 네비게이션 세팅
+        sample_bottom_navi.setOnNavigationItemSelectedListener {
+            var index by Delegates.notNull<Int>()
+            when (it.itemId) {
+                R.id.menu_account -> index = 0
+                R.id.menu_camera -> index = 1
+                R.id.menu_chat -> index = 2
+            }
+            sample_bottom_viewpager.currentItem = index
+            true
+        }
+
+
+    }
+}
+```
