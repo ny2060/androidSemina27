@@ -252,3 +252,88 @@ class ViewpagerActivity : AppCompatActivity() {
     }
 }
 ```
+
+### 안드로이드 세미나 과제 6주차 2020/12/02
+postmas test 화면 / 이미 회원가입을 한 후라서 중복된 값 체크
+![image](https://user-images.githubusercontent.com/48551119/100760508-2b578880-3435-11eb-83e1-0544ad83851d.png)
+
+##비밀번호 틀린경우(화면)
+
+![비밀번호 틀린경우](https://user-images.githubusercontent.com/48551119/100760658-5510af80-3435-11eb-8924-80a76556a6ba.png)
+
+##로그인 성공 화면
+
+![로그인 성공](https://user-images.githubusercontent.com/48551119/100760917-a325b300-3435-11eb-9e52-892625968514.png)
+
+##회원가입 완료 화면
+
+![회원가입 완료](https://user-images.githubusercontent.com/48551119/100761050-c8b2bc80-3435-11eb-8d4d-7bcbb42d63ad.png)
+
+**인터페이스 SampleService**
+```
+interface SampleService{
+
+    @Headers("Content-Type:application/json")
+    @POST("/users/signin")
+    fun postLogin(
+        @Body body : SampleRequestData
+    ) : Call<SampleResponseData>
+
+    @Headers("Content-Type:application/json")
+    @POST("/users/signup")
+    fun postSignup(
+        @Body body : SampleRequestData2
+
+
+    ):Call<SampleResponseData2>
+}
+```
+
+**Requestdatalogin**
+```
+data class SampleRequestData(
+    val email : String,
+    val password : String
+)
+```
+**Responsedatalogin**
+```
+data class SampleResponseData(
+    val data: Data,
+    val message: String,
+    val status: Int,
+    val success: Boolean
+) {
+    data class Data(
+        val email: String,
+        val password: String,
+        val userName: String
+    )
+}
+```
+**RequestDataSignup**
+```
+
+data class SampleRequestData2(
+    val email : String,
+    val password : String,
+    val username : String
+)
+```
+**ResponseDataSignup**
+```
+
+data class SampleResponseData2(
+    val data: Data,
+    val message: String,
+    val status: Int,
+    val success: Boolean
+) {
+    data class Data(
+        val email: String,
+        val password: String,
+        val userName: String
+    )
+}
+```
+
