@@ -1,6 +1,6 @@
 # androidsemina 1주차 실습과제 2020.10.11완료
-
-“`  signupbtn.setOnClickListener{
+```
+signupbtn.setOnClickListener{
 
 
             val intent= Intent(this,SignUpActivity::class.java)
@@ -26,11 +26,15 @@
 
             }
         }
+```
 ### 필수과제
-회원가입 버튼 눌렀을때 나타나는 회원가입 화면
-![image](https://user-images.githubusercontent.com/48551119/95677545-2d555600-0c01-11eb-9047-a4ca1c9976e9.png)
-### 심화과제
 
+회원가입 버튼 눌렀을때 나타나는 회원가입 화면
+
+![image](https://user-images.githubusercontent.com/48551119/95677545-2d555600-0c01-11eb-9047-a4ca1c9976e9.png)
+
+### 심화과제
+```
  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -43,13 +47,16 @@
             }
         }
     }
+```
+ 
 startActivityForResult()사용하여 로그인화면 내가 입력한 아이디와 비밀번호 뜨게하기
+
 ![image](https://user-images.githubusercontent.com/48551119/95677572-5544b980-0c01-11eb-86c5-1b9724b89085.png)
 
 ### 심화과제2
  SharedPreferences()를이용해서 아이디와 비밀번호가 저장되어있으면 자동로그인
 ![자동로그인](https://user-images.githubusercontent.com/48551119/95677417-6214dd80-0c00-11eb-8be5-269753360aa1.png)
-
+```
  if(MySharedPreferences.getUserId(this).isNullOrBlank()
             || MySharedPreferences.getUserPass(this).isNullOrBlank()) {
             Login()
@@ -61,11 +68,11 @@ startActivityForResult()사용하여 로그인화면 내가 입력한 아이디�
             startActivity(intent)
             finish()
         }
-        
+```      
         
        
        
-### 안드로이드 세미나 필수과제 3 2020.11.05완료
+# 안드로이드 세미나 필수과제 3 2020.11.05완료
 하단탭+뷰페이저
 ![첫번째 페이지](https://user-images.githubusercontent.com/48551119/98194793-89db3500-1f63-11eb-859f-ee6ae4fef42c.png)
 ```
