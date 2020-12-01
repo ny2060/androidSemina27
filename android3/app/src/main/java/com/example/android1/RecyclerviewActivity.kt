@@ -30,9 +30,6 @@ class RecyclerviewActivity : AppCompatActivity() {
 
 
 
-
-
-
         rcv.adapter=sampleAdapter
         //rcv.layoutManager = LinearLayoutManager(this)
         rcv.layoutManager = GridLayoutManager(this,2)

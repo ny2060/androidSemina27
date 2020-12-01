@@ -11,7 +11,9 @@ import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_viewpager.*
+import kotlinx.android.synthetic.main.activity_viewpager.sample_bottom_navi
 import kotlinx.android.synthetic.main.activity_viewpager.sample_bottom_viewpager
+import kotlinx.android.synthetic.main.activity_viewpager2.*
 import kotlinx.android.synthetic.main.fragment_blank.*
 import kotlin.properties.Delegates
 
@@ -22,7 +24,13 @@ class ViewpagerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_viewpager)
+        setContentView(R.layout.activity_viewpager2)
+
+        fab.setOnClickListener {
+            val bottomSheet = BlankFragmentsheet()
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+        }
+
 
         val fragment= BlankFragment()
         val fragment2= BlankFragment2()

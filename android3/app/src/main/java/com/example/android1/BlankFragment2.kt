@@ -31,6 +31,9 @@ class BlankFragment2 : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var rootView = inflater.inflate(R.layout.fragment_blank2, container, false)
+
+
+
         sampleAdapter = SampleAdapter(requireContext())
 
         recyclerView1 = rootView.findViewById(R.id.rcv2!!)as RecyclerView
@@ -39,9 +42,6 @@ class BlankFragment2 : Fragment() {
 
         recyclerView1.adapter = sampleAdapter
         recyclerView1.layoutManager = LinearLayoutManager(requireContext())
-       // rcv.adapter=sampleAdapter
-        //rcv.layoutManager = LinearLayoutManager(this)
-      //  rcv.layoutManager = LinearLayoutManager(requireContext())
 
         sampleAdapter.data = mutableListOf(
             SampleData(" 이름","안나영","20/10/18","이름은 안나영 별명은 기억이안나영, 생각이안나영, 이손안나입니다."),

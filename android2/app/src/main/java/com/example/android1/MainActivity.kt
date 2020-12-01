@@ -22,6 +22,14 @@ class MainActivity() : AppCompatActivity() {
         
 //        name.text.toString()
 
+        textview6.setOnClickListener {
+            val intent= Intent(this,SignUpActivity::class.java)
+
+            //  val intent= Intent(this,HomeActivity::class.java)
+            // startActivityForResult(intent,0)
+            startActivity(intent)
+        }
+
 
 
         loginbtn.setOnClickListener {

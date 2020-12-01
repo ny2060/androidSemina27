@@ -11,6 +11,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_recyclerview.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity() : AppCompatActivity() {
 
@@ -33,6 +38,31 @@ class MainActivity() : AppCompatActivity() {
 
 
         loginbtn.setOnClickListener {
+            val email=loginid.text.toString()
+            val password=loginpass.text.toString()
+            val call : Call<SampleResponseData> =SampleServiceImpl.service.postLogin(
+                SampleRequestData(email=email,password = password)
+            )
+            call.enqueue(object :Callback<SampleResponseData>{
+                override fun onFailure(call: Call<SampleResponseData>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<SampleResponseData>,
+                    response: Response<SampleResponseData>
+                ) {
+
+                    response.takeIf { it.isSuccessful }
+                        ?.body()
+                        ?.let { it->
+
+                            //something
+
+                        }?:showError(response.errorBody())
+
+                }
+            })
             MySharedPreferences.clearUser(this)
 
             val intent= Intent(this,ViewpagerActivity::class.java)
@@ -42,12 +72,12 @@ class MainActivity() : AppCompatActivity() {
             startActivity(intent)
         }
 
-        signupbtn.setOnClickListener{
+        /*signupbtn.setOnClickListener{
 
 
             val intent= Intent(this,SignUpActivity::class.java)
             startActivityForResult(intent,0)
-        }
+        }*/
 
 
        /* if(MySharedPreferences.getUserId(this).isNullOrBlank()
@@ -64,6 +94,12 @@ class MainActivity() : AppCompatActivity() {
 */
 
 
+    }
+
+    private fun showError(error : ResponseBody?){
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        Toast.makeText(this, ob.getString("message"),Toast.LENGTH_SHORT).show()
     }
 
 

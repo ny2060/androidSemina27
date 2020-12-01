@@ -21,8 +21,4 @@ class Tablayoutadapter (fm : FragmentManager)
 
     override fun getCount(): Int =2
 
-
-
-
-
 }
