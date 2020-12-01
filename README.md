@@ -254,7 +254,12 @@ class ViewpagerActivity : AppCompatActivity() {
 ```
 
 ### 안드로이드 세미나 과제 6주차 2020/12/02
+postmas test 화면 / 성공 화면
+
+![성공](https://user-images.githubusercontent.com/48551119/100762241-1845b800-3437-11eb-937a-48f9ea7c064b.png)
+
 postmas test 화면 / 이미 회원가입을 한 후라서 중복된 값 체크
+
 ![image](https://user-images.githubusercontent.com/48551119/100760508-2b578880-3435-11eb-83e1-0544ad83851d.png)
 
 ##비밀번호 틀린경우(화면)
