@@ -70,6 +70,102 @@ startActivityForResult()사용하여 로그인화면 내가 입력한 아이디�
         }
 ```      
         
+# androidsemina 2주차 실습과제 2020.10.17완료
+
+**RecyclerView 화면**
+![image](https://user-images.githubusercontent.com/48551119/101049355-c7fd6000-35c6-11eb-87cc-9640ba0e2ee9.png)
+
+**RecyclerActiviy 코드**
+``` kotlin
+class RecyclerviewActivity : AppCompatActivity() {
+
+    private lateinit var sampleAdapter : SampleAdapter
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_recyclerview)
+
+
+
+
+
+        sampleAdapter = SampleAdapter(this)
+
+
+
+
+
+
+        rcv.adapter=sampleAdapter
+        rcv.layoutManager = LinearLayoutManager(this)
+       
+        sampleAdapter.data = mutableListOf(
+            SampleData(" 이름","안나영","20/10/18","이름은 안나영 별명은 기억이안나영, 생각이안나영, 이손안나입니다."),
+            SampleData(" 나이","22살","20/10/18","생년월일은 1999년 8월 17일입니다."),
+            SampleData(" 파트","안드로이드","20/10/18","현재 안드로이드 파트원이며" +
+                    "파이썬 ,JAVA,C언어를 사용하고있습니다."),
+            SampleData(" 취미","노는것","20/10/18","노는것을 좋아하며 보드게임, 레저스포츠 등등을 좋아합니다."),
+        )
+        sampleAdapter.notifyDataSetChanged()
+
+        sampleAdapter.setItemClickListener( object : SampleAdapter.ItemClickListener{
+            override fun onClick(view: View, position: Int) {
+                val item = sampleAdapter.data [position]
+                Log.d("SSS", "${position}번 리스트 선택")
+                val intent = Intent(view.context, DetailActivity::class.java)
+                intent.putExtra("title",item.title)
+                intent.putExtra("subtitle",item.subTitle)
+                intent.putExtra("date",item.date)
+                intent.putExtra("detail",item.detail)
+                startActivity(intent)
+            }
+        })
+    }
+
+
+
+}
+```
+**SampleViewholder 코드**
+``` kotlin
+class SampleViewholder (itemview: View):RecyclerView.ViewHolder(itemview){
+
+
+    private val title: TextView=itemview.findViewById(R.id.title)
+    private val subtitle: TextView=itemview.findViewById(R.id.subtitle)
+
+
+
+
+    fun onBind(data : SampleData){
+        Log.d("Test","onBind 호출")
+        title.text=data.title
+        subtitle.text=data.subTitle
+    }
+}
+```
+**SampleData 코드**
+``` kotlin
+data class SampleData(
+    val title : String,
+    val subTitle:String,
+    val date:String,
+    val detail:String
+)
+```
+**상세화면 페이지**
+![image](https://user-images.githubusercontent.com/48551119/101049137-971d2b00-35c6-11eb-84bd-ffedc6099a6d.png)
+
+**2차 세미나 성장과제 1번**
+
+```
+ rcv.layoutManager = GridLayoutManager(this,2)
+```
+
+**GridLayout 화면**
+![gridlayout](https://user-images.githubusercontent.com/48551119/101048979-6d640400-35c6-11eb-8e26-0cdd873c5c67.png)
        
        
 # 안드로이드 세미나 필수과제 3 2020.11.05완료
